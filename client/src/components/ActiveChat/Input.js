@@ -33,11 +33,13 @@ const Input = (props) => {
       text: event.target.text.value,
       recipientId: otherUser.id,
       conversationId,
-      sender: conversationId ? user : null
+      sender: conversationId ? null : user
     };
+
     await postMessage(reqBody);
+    fetchConversations()
     setText("");
-    fetchConversations();
+    
   };
 
   return (
