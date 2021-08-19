@@ -13,9 +13,11 @@ export const addMessageToStore = (state, payload) => {
 
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      //Added tempState to prevent direct modification on state (props instance will be the same and not re-render)
+      const tempState = {...convo};
+      tempState.messages.push(message);
+      tempState.latestMessageText = message.text;
+      return tempState;
     } else {
       return convo;
     }
@@ -48,7 +50,8 @@ export const removeOfflineUserFromStore = (state, id) => {
 
 export const addSearchedUsersToStore = (state, users) => {
   const currentUsers = {};
-  // make table of current users so we can lookup faster
+
+  // make table of  current users so we can lookup faster
   state.forEach((convo) => {
     currentUsers[convo.otherUser.id] = true;
   });
@@ -65,12 +68,14 @@ export const addSearchedUsersToStore = (state, users) => {
 };
 
 export const addNewConvoToStore = (state, recipientId, message) => {
+
   return state.map((convo) => {
     if (convo.otherUser.id === recipientId) {
-      convo.id = message.conversationId;
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      const convoCopy = {...convo}
+      convoCopy.id = message.conversationId;
+      convoCopy.messages.push(message);
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }

@@ -37,7 +37,6 @@ const Input = (props) => {
     };
 
     await postMessage(reqBody);
-    fetchConversations()
     setText("");
     
   };

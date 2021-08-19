@@ -96,20 +96,13 @@ const sendMessage = (data, body) => {
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
   try {    
-    const data = saveMessage(body);
-    
-    //data promise is async, has to wait until data is return from save message
-    data.then((res) => {
+    const data = await saveMessage(body);
       if (!body.conversationId) {
-        dispatch(addConversation(body.recipientId, res.message));
+        dispatch(addConversation(body.recipientId, data.message));
       } else {
-        dispatch(setNewMessage(res.message));
+        dispatch(setNewMessage(data.message));
       }
-      sendMessage(res, body);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      sendMessage(data, body);
   } catch (error) {
     console.error(error);
   }
