@@ -49,4 +49,4 @@ const OtherUserBubble = (props) => {
   );
 };
 
-export default React.memo(OtherUserBubble);
+export default OtherUserBubble;

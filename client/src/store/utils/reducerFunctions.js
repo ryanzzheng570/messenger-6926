@@ -14,10 +14,10 @@ export const addMessageToStore = (state, payload) => {
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
       //Added tempState to prevent direct modification on state (props instance will be the same and not re-render)
-      const tempState = {...convo};
-      tempState.messages.push(message);
-      tempState.latestMessageText = message.text;
-      return tempState;
+      const convoCopy = {...convo};
+      convoCopy.messages.push(message);
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }

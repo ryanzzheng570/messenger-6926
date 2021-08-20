@@ -40,4 +40,4 @@ const SenderBubble = (props) => {
   );
 };
 
-export default React.memo(SenderBubble);
+export default SenderBubble;
