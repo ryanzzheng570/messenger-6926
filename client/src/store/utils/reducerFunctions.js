@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -85,9 +83,11 @@ export const addNewConvoToStore = (state, recipientId, message) => {
   });
 };
 
-export const addConversationsWithSortedMessagesToStore = (conversations) => {
+//Sort the messages properties given the conversations
+export const getConvoWithSortedMessage = (conversations) => {
+  //Loop through conversations and update messages array to sort by the oldest to earliest
   conversations.forEach((conversation) => {
-    conversation.messages = conversation.messages.sort((t1, t2) => new moment(t1.createdAt) - new moment(t2.createdAt));
+    conversation.messages = conversation.messages.sort((t1, t2) => new Date(t1.createdAt) - new Date(t2.createdAt));
   });
 
   return conversations;
