@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -13,8 +15,9 @@ export const addMessageToStore = (state, payload) => {
 
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
-      //Added tempState to prevent direct modification on state (props instance will be the same and not re-render)
-      const convoCopy = {...convo};
+      //Added convoCopy to prevent direct modification on state (props instance will be the same and not re-render)
+      const convoCopy = { ...convo };
+      // convoCopy.messages = [message].concat(convoCopy.messages)
       convoCopy.messages.push(message);
       convoCopy.latestMessageText = message.text;
       return convoCopy;
@@ -60,7 +63,7 @@ export const addSearchedUsersToStore = (state, users) => {
   users.forEach((user) => {
     // only create a fake convo if we don't already have a convo with this user
     if (!currentUsers[user.id]) {
-      let fakeConvo = { otherUser: user, messages: []};
+      let fakeConvo = { otherUser: user, messages: [] };
       newState.push(fakeConvo);
     }
   });
@@ -68,10 +71,10 @@ export const addSearchedUsersToStore = (state, users) => {
 };
 
 export const addNewConvoToStore = (state, recipientId, message) => {
-
   return state.map((convo) => {
     if (convo.otherUser.id === recipientId) {
-      const convoCopy = {...convo};
+      //Added convoCopy to prevent direct modification on state (props instance will be the same and not re-render)
+      const convoCopy = { ...convo };
       convoCopy.id = message.conversationId;
       convoCopy.messages.push(message);
       convoCopy.latestMessageText = message.text;
@@ -81,3 +84,11 @@ export const addNewConvoToStore = (state, recipientId, message) => {
     }
   });
 };
+
+export const addConversationsWithSortedMessagesToStore = (conversations) => {
+  conversations.forEach((conversation) => {
+    conversation.messages = conversation.messages.sort((t1, t2) => new moment(t1.createdAt) - new moment(t2.createdAt));
+  });
+
+  return conversations;
+}
