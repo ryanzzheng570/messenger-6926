@@ -13,9 +13,12 @@ export const addMessageToStore = (state, payload) => {
 
   return state.map((convo) => {
     if (convo.id === message.conversationId) {
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      //Added convoCopy to prevent direct modification on state (props instance will be the same and not re-render)
+      const convoCopy = { ...convo };
+      // convoCopy.messages = [message].concat(convoCopy.messages)
+      convoCopy.messages.push(message);
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }
@@ -49,7 +52,7 @@ export const removeOfflineUserFromStore = (state, id) => {
 export const addSearchedUsersToStore = (state, users) => {
   const currentUsers = {};
 
-  // make table of current users so we can lookup faster
+  // make table of  current users so we can lookup faster
   state.forEach((convo) => {
     currentUsers[convo.otherUser.id] = true;
   });
@@ -62,19 +65,30 @@ export const addSearchedUsersToStore = (state, users) => {
       newState.push(fakeConvo);
     }
   });
-
   return newState;
 };
 
 export const addNewConvoToStore = (state, recipientId, message) => {
   return state.map((convo) => {
     if (convo.otherUser.id === recipientId) {
-      convo.id = message.conversationId;
-      convo.messages.push(message);
-      convo.latestMessageText = message.text;
-      return convo;
+      //Added convoCopy to prevent direct modification on state (props instance will be the same and not re-render)
+      const convoCopy = { ...convo };
+      convoCopy.id = message.conversationId;
+      convoCopy.messages.push(message);
+      convoCopy.latestMessageText = message.text;
+      return convoCopy;
     } else {
       return convo;
     }
   });
 };
+
+//Sort the messages properties given the conversations
+export const getConvoWithSortedMessage = (conversations) => {
+  //Loop through conversations and update messages array to sort by the oldest to earliest
+  conversations.forEach((conversation) => {
+    conversation.messages = conversation.messages.sort((t1, t2) => new Date(t1.createdAt) - new Date(t2.createdAt));
+  });
+
+  return conversations;
+}
