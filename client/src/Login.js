@@ -8,10 +8,21 @@ import {
   Button,
   FormControl,
   TextField,
+  Icon
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
+import backgroundImg from "./images/bg-img.png";
+import chatIcon from "./images/chatIcon.png";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  backgroundImage: `url(${backgroundImg})`,
+}));
 
 const Login = (props) => {
+  const classes = useStyles();
+
   const history = useHistory();
   const { user, login } = props;
 
@@ -29,6 +40,13 @@ const Login = (props) => {
 
   return (
     <Grid container justifyContent="center">
+      <Box>
+      <Icon className={classes.backgroundImage}>
+        <img src={chatIcon} alt="chat-icon" />
+        <Typography>Converse with anyone with any language</Typography>
+      </Icon>
+        {/* <img src={backgroundImg} alt='login-pic'/> */}
+      </Box>
       <Box>
         <Grid container item>
           <Typography>Need to register?</Typography>
