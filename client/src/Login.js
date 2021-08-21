@@ -11,18 +11,24 @@ import {
   Icon
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
-import backgroundImg from "./images/bg-img.png";
-import chatIcon from "./images/chatIcon.png";
 import { makeStyles } from "@material-ui/core/styles";
-
+import SideBackground from "./components/Login/SideBackground";
 
 const useStyles = makeStyles((theme) => ({
-  backgroundImage: `url(${backgroundImg})`,
+  container: {
+    height: "75vh",
+  },
+  info_container_signup: {
+    float: 'right',
+    width: 'unset'
+  },
+  form: {
+    padding: '200px',
+  },
 }));
 
 const Login = (props) => {
   const classes = useStyles();
-
   const history = useHistory();
   const { user, login } = props;
 
@@ -39,20 +45,14 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justifyContent="center">
+    <Grid container alignContent="center" justifyContent="center" className={classes.container}>
+      <SideBackground/>
       <Box>
-      <Icon className={classes.backgroundImage}>
-        <img src={chatIcon} alt="chat-icon" />
-        <Typography>Converse with anyone with any language</Typography>
-      </Icon>
-        {/* <img src={backgroundImg} alt='login-pic'/> */}
-      </Box>
-      <Box>
-        <Grid container item>
+        <Grid container item className={classes.info_container_signup}>
           <Typography>Need to register?</Typography>
           <Button onClick={() => history.push("/register")}>Register</Button>
         </Grid>
-        <form onSubmit={handleLogin}>
+        <form className={classes.form} onSubmit={handleLogin}>
           <Grid>
             <Grid>
               <FormControl margin="normal" required>
