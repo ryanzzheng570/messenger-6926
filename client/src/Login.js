@@ -13,18 +13,51 @@ import {
 import { login } from "./store/utils/thunkCreators";
 import { makeStyles } from "@material-ui/core/styles";
 import SideBackground from "./components/Login/SideBackground";
+import { borderBottom, borderRadius, color } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     height: "75vh",
+    '& .MuiButton-root': {
+      fontFamily: 'Montserrat, sans-serif',
+    }
   },
   info_container_signup: {
-    float: 'right',
-    width: 'unset'
+    marginTop: '20px',
+    paddingRight: '30px',
+  },
+  form_container: {
+    width: '33%',
+    border: '1px solid lightgrey',
+    borderRadius: '5px'
   },
   form: {
-    padding: '200px',
+    padding: '140px 90px',
+    '& input': {
+      marginTop: '20px',
+    },
+    '& label.Mui-focused': {
+      color: '#8e8e8e',
+    },
+    '& .MuiInput-underline:before': {
+      borderBottomColor: '#8e8e8e',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#3A8DFF',
+    },
   },
+  btn_createAcc: {
+    padding: '15px 30px',
+    color: '#3A8DFF',
+    boxShadow: '0 0 10px #ccc',
+  },
+  create_account_info: {
+    marginTop: '15px',
+    marginRight: '20px',
+    fontSize: '13px',
+    color: 'grey',
+  },
+
 }));
 
 const Login = (props) => {
@@ -45,34 +78,41 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container alignContent="center" justifyContent="center" className={classes.container}>
-      <SideBackground/>
-      <Box>
-        <Grid container item className={classes.info_container_signup}>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+    <Grid container justifyContent="center" className={classes.container}>
+      <SideBackground />
+      <Box className={classes.form_container}>
+        <Grid container item justifyContent="flex-end" className={classes.info_container_signup}>
+          <Typography align='right' className={classes.create_account_info}>Don't have an account?</Typography>
+          <Button
+            variant="outlined"
+            className={classes.btn_createAcc}
+            onClick={() => history.push("/register")}
+          >Create an Account</Button>
         </Grid>
         <form className={classes.form} onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
+          <Grid justifyContent='center'>
+            <Typography style={{ fontWeight: 'bold' }} variant='h5'>Welcome back!</Typography>
+            <Grid className={classes.input}>
+              <FormControl fullWidth margin="normal" required>
                 <TextField
                   aria-label="username"
-                  label="Username"
+                  label="User Name"
                   name="username"
                   type="text"
                 />
               </FormControl>
             </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
             <Grid>
+              <FormControl fullWidth margin="normal" required>
+                <TextField
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
+                />
+              </FormControl>
+            </Grid>
+            <Grid justifyContent='flex-end'>
               <Button type="submit" variant="contained" size="large">
                 Login
               </Button>

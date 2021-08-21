@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundSize: 'cover',
       padding: '200px 20px 200px 20px',
       textAlign: 'center',
+      width: '20%'
     },
     p: {
       fontSize: '20px',
