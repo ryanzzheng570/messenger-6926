@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Grid, CssBaseline, Button } from "@material-ui/core";
+import { Grid, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SidebarContainer } from "./Sidebar";
 import { ActiveChat } from "./ActiveChat";
-import { logout, fetchConversations } from "../store/utils/thunkCreators";
-import { clearOnLogout } from "../store/index";
+import { fetchConversations } from "../store/utils/thunkCreators";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +35,11 @@ const Home = (props) => {
     return <Redirect to="/register" />;
   }
 
-  const handleLogout = async () => {
-    await logout(user.id);
-  };
-
   return (
     <>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <SidebarContainer logout={handleLogout}/>
+        <SidebarContainer/>
         <ActiveChat />
       </Grid>
     </>
@@ -60,10 +55,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: (id) => {
-      dispatch(logout(id));
-      dispatch(clearOnLogout());
-    },
     fetchConversations: () => {
       dispatch(fetchConversations());
     }

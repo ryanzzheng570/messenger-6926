@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import { BadgeAvatar } from "./index";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { logout } from "../../store/utils/thunkCreators";
+import { clearOnLogout } from "../../store";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -50,6 +52,11 @@ const CurrentUser = (props) => {
 
   const user = props.user || {};
 
+  const handleLogout = async () => {
+    // console.log(user.id)
+    await props.logout(user.id);
+  };
+
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -69,8 +76,8 @@ const CurrentUser = (props) => {
       </Box>
       <Drawer anchor={'left'} open={isDrawerOn} onClose={toggleDrawer(false)}>
         <List className={classes.list}>
-          <ListItem button key={'Logout'} onClick={() => props.logout()}>
-            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+          <ListItem button key={'Logout'} onClick={handleLogout}>
+            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
             <ListItemText primary={'Logout'} />
           </ListItem>
         </List>
@@ -85,4 +92,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CurrentUser);
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: (id) => {
+      dispatch(logout(id));
+      dispatch(clearOnLogout());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)
+  (CurrentUser);

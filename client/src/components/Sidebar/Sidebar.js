@@ -22,11 +22,11 @@ const useStyles = makeStyles(() => ({
 const Sidebar = (props) => {
   const classes = useStyles();
   const conversations = props.conversations || [];
-  const { handleChange, searchTerm, logout } = props;
+  const { handleChange, searchTerm } = props;
 
   return (
     <Box className={classes.root}>
-      <CurrentUser logout={logout} />
+      <CurrentUser/>
       <Typography className={classes.title}>Chats</Typography>
       <Search handleChange={handleChange} />
       {conversations
