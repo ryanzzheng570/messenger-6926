@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Grid,
@@ -8,7 +8,6 @@ import {
   Button,
   FormControl,
   TextField,
-  Icon
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
 import { makeStyles } from "@material-ui/core/styles";
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form_container: {
     width: '33%',
-    border: '1px solid lightgrey',
+    border: '1px solid #B0B0B0',
     borderRadius: '5px'
   },
   form: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '20px',
     },
     '& label.Mui-focused': {
-      color: '#8e8e8e',
+      color: '#B0B0B0',
     },
     '& .MuiInput-underline:before': {
       borderBottomColor: '#8e8e8e',
@@ -57,7 +56,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '13px',
     color: 'grey',
   },
-
+  btn_submit: {
+    padding: '13px 60px'
+  }
 }));
 
 const Login = (props) => {
@@ -102,18 +103,20 @@ const Login = (props) => {
                 />
               </FormControl>
             </Grid>
-            <Grid>
+            <Grid container>
               <FormControl fullWidth margin="normal" required>
                 <TextField
                   label="Password"
                   aria-label="password"
                   type="password"
                   name="password"
+                  InputProps={{endAdornment: <Button style={{fontSize: '12px', marginTop: '15px'}} color='primary'>Forget?</Button>}}
                 />
               </FormControl>
+              
             </Grid>
-            <Grid justifyContent='flex-end'>
-              <Button type="submit" variant="contained" size="large">
+            <Grid style={{marginTop: '60px'}} container justifyContent='center'>
+              <Button className={classes.btn_submit} color={'primary'} type="submit" variant="contained" size="large">
                 Login
               </Button>
             </Grid>
