@@ -62,12 +62,12 @@ const Login = (props) => {
                   aria-label="password"
                   type="password"
                   name="password"
-                  InputProps={{endAdornment: <Button style={{fontSize: '12px', marginTop: '15px'}} color='primary'>Forget?</Button>}}
+                  InputProps={{ endAdornment: <Button style={{ fontSize: '12px', marginTop: '15px' }} color='primary'>Forget?</Button> }}
                 />
               </FormControl>
-              
+
             </Grid>
-            <Grid style={{marginTop: '60px'}} container justifyContent='center'>
+            <Grid style={{ marginTop: '60px' }} container justifyContent='center'>
               <Button className={classes.btn_submit} color={'primary'} type="submit" variant="contained" size="large">
                 Login
               </Button>
