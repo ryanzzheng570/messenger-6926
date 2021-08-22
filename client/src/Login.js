@@ -45,7 +45,7 @@ const Login = (props) => {
         <form className={classes.form} onSubmit={handleLogin}>
           <Grid justifyContent='center'>
             <Typography style={{ fontWeight: 'bold' }} variant='h5'>Welcome back!</Typography>
-            <Grid className={classes.input}>
+            <Grid>
               <FormControl fullWidth margin="normal" required>
                 <TextField
                   aria-label="username"
