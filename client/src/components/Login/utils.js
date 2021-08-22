@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme) => ({
       paddingRight: '30px',
     },
     form_container: {
-      width: '33%',
       border: '1px solid #B0B0B0',
       borderRadius: '5px'
     },

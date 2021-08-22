@@ -33,7 +33,7 @@ const Login = (props) => {
   return (
     <Grid container justifyContent="center" className={classes.container}>
       <SideBackground />
-      <Box className={classes.form_container}>
+      <Box width={650} className={classes.form_container}>
         <Grid container item justifyContent="flex-end" className={classes.info_container_signup}>
           <Typography align='right' className={classes.create_account_info}>Don't have an account?</Typography>
           <Button
