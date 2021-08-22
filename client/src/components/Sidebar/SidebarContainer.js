@@ -5,7 +5,7 @@ import { searchUsers } from "../../store/utils/thunkCreators";
 import { clearSearchedUsers } from "../../store/conversations";
 
 const SidebarContainer = (props) => {
-  const { searchUsers, clearSearchedUsers } = props;
+  const { searchUsers, clearSearchedUsers, logout } = props;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -25,7 +25,7 @@ const SidebarContainer = (props) => {
     setSearchTerm(event.target.value);
   };
 
-  return <Sidebar handleChange={handleChange} searchTerm={searchTerm} />;
+  return <Sidebar logout={logout} handleChange={handleChange} searchTerm={searchTerm} />;
 };
 
 const mapDispatchToProps = (dispatch) => {

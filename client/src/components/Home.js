@@ -10,7 +10,8 @@ import { clearOnLogout } from "../store/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh"
+    height: "100vh",
+    fontFamily: 'Montserrat, sans-serif',
   }
 }));
 
@@ -41,13 +42,9 @@ const Home = (props) => {
 
   return (
     <>
-      {/* logout button will eventually be in a dropdown next to username */}
-      <Button className={classes.logout} onClick={handleLogout}>
-        Logout
-      </Button>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <SidebarContainer />
+        <SidebarContainer logout={handleLogout}/>
         <ActiveChat />
       </Grid>
     </>
