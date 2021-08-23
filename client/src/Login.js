@@ -33,9 +33,9 @@ const Login = (props) => {
   return (
     <Grid container justifyContent="center" className={classes.container}>
       <SideBackground />
-      <Box width={650} className={classes.form_container}>
+      <Box width={650}>
         <Grid container item justifyContent="flex-end" className={classes.info_container_signup}>
-          <Typography align='right' className={classes.create_account_info}>Don't have an account?</Typography>
+          <Typography align='right' className={classes.create_account_info}>Create an Account</Typography>
           <Button
             variant="outlined"
             className={classes.btn_createAcc}
@@ -62,7 +62,7 @@ const Login = (props) => {
                   aria-label="password"
                   type="password"
                   name="password"
-                  InputProps={{ endAdornment: <Button style={{ fontSize: '12px', marginTop: '15px' }} color='primary'>Forget?</Button> }}
+                  InputProps={{ endAdornment: <Button style={{ fontSize: '12px', marginTop: '15px' }} color='primary'>Forgot?</Button> }}
                 />
               </FormControl>
 

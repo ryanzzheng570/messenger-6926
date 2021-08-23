@@ -11,10 +11,6 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: '20px',
         paddingRight: '30px',
     },
-    form_container: {
-        border: '1px solid #B0B0B0',
-        borderRadius: '5px'
-    },
     form: {
         padding: '140px 90px',
         '& input': {
@@ -33,12 +29,10 @@ export const useStyles = makeStyles((theme) => ({
     btn_createAcc: {
         padding: '15px 30px',
         color: '#3A8DFF',
-        boxShadow: '0 0 10px #B0B0B0',
     },
     btn_Login_Page: {
         padding: '13px 50px',
         color: '#3A8DFF',
-        boxShadow: '0 0 10px #B0B0B0',
     },
     create_account_info: {
         marginTop: '15px',
@@ -47,6 +41,6 @@ export const useStyles = makeStyles((theme) => ({
         color: 'grey',
     },
     btn_submit: {
-        padding: '13px 60px'
+        padding: `${theme.spacing(0)}px ${theme.spacing(1)}px`
     }
 }));

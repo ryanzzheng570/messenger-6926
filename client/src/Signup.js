@@ -25,12 +25,6 @@ const Login = (props) => {
     const username = event.target.username.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-
-    if (password !== confirmPassword) {
-      setFormErrorMessage({ confirmPassword: "Passwords must match" });
-      return;
-    }
 
     await register({ username, email, password });
   };
@@ -42,10 +36,15 @@ const Login = (props) => {
   return (
     <Grid container justifyContent="center" className={classes.container}>
       <SideBackground />
-      <Box width={650} className={classes.form_container}>
+      <Box width={650}>
         <Grid width={650} container item justifyContent="flex-end" className={classes.info_container_signup}>
-          <Typography align='right' className={classes.create_account_info}>Need to log in?</Typography>
-          <Button className={classes.btn_Login_Page} onClick={() => history.push("/login")}>Login</Button>
+          <Typography align='right' className={classes.create_account_info}>Already have an account?</Typography>
+          <Button variant="outlined"
+            className={classes.btn_Login_Page}
+            onClick={() => history.push("/login")}
+          >
+            Login
+          </Button>
         </Grid>
         <form className={classes.form} onSubmit={handleRegister}>
           <Grid justifyContent='center'>
@@ -80,21 +79,6 @@ const Login = (props) => {
                   type="password"
                   inputProps={{ minLength: 6 }}
                   name="password"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl fullWidth margin="normal" error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  label="Confirm Password"
-                  aria-label="confirm password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="confirmPassword"
                   required
                 />
                 <FormHelperText>
