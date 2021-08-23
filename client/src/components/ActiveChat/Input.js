@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { postMessage } from "../../store/utils/thunkCreators";
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import ImageIcon from '@material-ui/icons/Image';
+import { cloudinary_endpoint } from "./utils/Constants";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -45,9 +46,25 @@ const Input = (props) => {
 
     await postMessage(reqBody);
     setText("");
+    setAttachments([]);
   };
 
-  const handleUploadImage = () => {
+  const uploadImage = async(files) => {
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    formData.append('upload_preset', 'eltw0zaf');
+
+    const data = await fetch(cloudinary_endpoint, {
+      method: 'POST',
+      body: formData
+    });
+
+    let res = await data.json();
+    return res.secure_url;
+  }
+
+  const handleUploadImage = ({ target }) => {
+    const link = uploadImage(target.files)
 
   }
 
@@ -66,9 +83,12 @@ const Input = (props) => {
               <IconButton color='secondary'>
                 <InsertEmoticonIcon className={classes.input_icon} />
               </IconButton>
-              <IconButton color='secondary' onClick={handleUploadImage}>
-                <ImageIcon className={classes.input_icon} />
-              </IconButton>
+              <input hidden accept='image/*' id='icon-button-photo' onChange={handleUploadImage} type='file'/>
+              <label htmlFor='icon-button-photo'>
+                <IconButton color='secondary' component='span'>
+                  <ImageIcon className={classes.input_icon} />
+                </IconButton>
+              </label>
             </>
           }
         />

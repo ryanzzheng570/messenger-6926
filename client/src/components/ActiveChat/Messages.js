@@ -18,9 +18,8 @@ const Messages = (props) => {
               <SenderBubble key={message.id} text={message.text} time={time} />
               <CloudinaryContext cloudName={cloudinaryCloudName}>
                 <div>
-                  <Image publicId="sample" width="50" />
+                  <Image publicId="lxs2grfhe6bi2d0cm7z0" width="50" />
                 </div>
-                {/* <Image publicId="sample" width="0.5" /> */}
               </CloudinaryContext>
             </>
           ) : (
