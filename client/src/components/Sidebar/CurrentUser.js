@@ -53,7 +53,6 @@ const CurrentUser = (props) => {
   const user = props.user || {};
 
   const handleLogout = async () => {
-    // console.log(user.id)
     await props.logout(user.id);
   };
 

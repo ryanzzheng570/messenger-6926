@@ -5,7 +5,7 @@ import { searchUsers } from "../../store/utils/thunkCreators";
 import { clearSearchedUsers } from "../../store/conversations";
 
 const SidebarContainer = (props) => {
-  const { searchUsers, clearSearchedUsers, logout } = props;
+  const { searchUsers, clearSearchedUsers } = props;
 
   const [searchTerm, setSearchTerm] = useState("");
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -8,7 +8,6 @@ import {
   Button,
   FormControl,
   TextField,
-  FormHelperText,
 } from "@material-ui/core";
 import { register } from "./store/utils/thunkCreators";
 import { useStyles } from "./components/Login/utils";
@@ -18,7 +17,6 @@ const Login = (props) => {
   const history = useHistory();
   const classes = useStyles();
   const { user, register } = props;
-  const [formErrorMessage, setFormErrorMessage] = useState({});
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -38,8 +36,16 @@ const Login = (props) => {
       <SideBackground />
       <Box width={650}>
         <Grid width={650} container item justifyContent="flex-end" className={classes.info_container_signup}>
-          <Typography align='right' className={classes.create_account_info}>Already have an account?</Typography>
-          <Button variant="outlined"
+          <Typography
+            color='textSecondary'
+            align='right'
+            className={classes.create_account_info}
+          >
+            Already have an account?
+          </Typography>
+          <Button
+            color='primary'
+            variant="outlined"
             className={classes.btn_Login_Page}
             onClick={() => history.push("/login")}
           >
@@ -72,7 +78,7 @@ const Login = (props) => {
               </FormControl>
             </Grid>
             <Grid>
-              <FormControl fullWidth margin="normal" error={!!formErrorMessage.confirmPassword}>
+              <FormControl fullWidth margin="normal">
                 <TextField
                   aria-label="password"
                   label="Password"
@@ -81,9 +87,6 @@ const Login = (props) => {
                   name="password"
                   required
                 />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
               </FormControl>
             </Grid>
             <Grid style={{ marginTop: '60px' }} container justifyContent='center'>

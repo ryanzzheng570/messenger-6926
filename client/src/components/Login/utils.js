@@ -8,13 +8,13 @@ export const useStyles = makeStyles((theme) => ({
         }
     },
     info_container_signup: {
-        marginTop: '20px',
-        paddingRight: '30px',
+        marginTop: theme.spacing(2),
+        paddingRight: theme.spacing(3),
     },
     form: {
-        padding: '140px 90px',
+        padding: theme.spacing(14, 9),
         '& input': {
-            marginTop: '20px',
+            marginTop: theme.spacing(2),
         },
         '& label.Mui-focused': {
             color: '#B0B0B0',
@@ -27,20 +27,20 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     btn_createAcc: {
-        padding: '15px 30px',
-        color: '#3A8DFF',
+        padding: theme.spacing(1, 3),
     },
     btn_Login_Page: {
-        padding: '13px 50px',
-        color: '#3A8DFF',
+        padding: theme.spacing(0, 5),
     },
     create_account_info: {
-        marginTop: '15px',
-        marginRight: '20px',
-        fontSize: '13px',
-        color: 'grey',
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(2),
+        fontSize: theme.typography.fontSize,
     },
     btn_submit: {
-        padding: `${theme.spacing(0)}px ${theme.spacing(1)}px`
+        padding: theme.spacing(0, 6)
+    },
+    btn_forgot: {
+        marginTop: theme.spacing(1),
     }
 }));

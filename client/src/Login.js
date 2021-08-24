@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Grid,
@@ -35,9 +35,16 @@ const Login = (props) => {
       <SideBackground />
       <Box width={650}>
         <Grid container item justifyContent="flex-end" className={classes.info_container_signup}>
-          <Typography align='right' className={classes.create_account_info}>Create an Account</Typography>
+          <Typography
+            color='textSecondary'
+            align='right'
+            className={classes.create_account_info}
+          >
+            Create an Account
+          </Typography>
           <Button
             variant="outlined"
+            color='primary'
             className={classes.btn_createAcc}
             onClick={() => history.push("/register")}
           >Create an Account</Button>
@@ -62,7 +69,10 @@ const Login = (props) => {
                   aria-label="password"
                   type="password"
                   name="password"
-                  InputProps={{ endAdornment: <Button style={{ fontSize: '12px', marginTop: '15px' }} color='primary'>Forgot?</Button> }}
+                  InputProps={{
+                    endAdornment:
+                      <Button className={classes.btn_forgot} color='primary'>Forgot?</Button>
+                  }}
                 />
               </FormControl>
 

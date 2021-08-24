@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       width: 0,
       background: 'transparent'
-  }
+    }
   }
 
 }));
@@ -43,7 +43,7 @@ const Messages = (props) => {
             <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
           );
         })}
-      <div ref={messageEndRef} />
+      <Box ref={messageEndRef} />
     </Box>
   );
 };
