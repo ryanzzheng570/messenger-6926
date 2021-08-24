@@ -73,6 +73,11 @@ const Input = (props) => {
     }
   }
 
+  //Hanlder to allow an image to upload multiple times
+  const handleMultipleUpload = (e) => {
+    e.target.value = null;
+  }
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <FormControl fullWidth hiddenLabel>
@@ -96,7 +101,7 @@ const Input = (props) => {
               <IconButton color='secondary'>
                 <InsertEmoticonIcon className={classes.input_icon} />
               </IconButton>
-              <input hidden accept='image/*' id='icon-button-photo' onChange={handleUploadImage} type='file' />
+              <input hidden accept='image/*' id='icon-button-photo' onInput={handleUploadImage} onClick={handleMultipleUpload} type='file' />
               <label htmlFor='icon-button-photo'>
                 <IconButton color='secondary' component='span'>
                   <ImageIcon className={classes.input_icon} />
