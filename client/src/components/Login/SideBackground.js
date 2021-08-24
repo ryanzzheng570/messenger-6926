@@ -12,16 +12,15 @@ const useStyles = makeStyles((theme) => ({
   backgroundImg: {
     background: `linear-gradient(rgba(58, 141, 255, 0.85), rgba(134, 185, 255, 0.85)), url(${backgroundImg})`,
     backgroundSize: 'cover',
-    padding: '200px 20px 200px 20px',
-    textAlign: 'center',
+    padding: theme.spacing(20, 2),
+    textAlign: 'center'
   },
   p: {
-    fontSize: '20px',
-    marginLeft: '20%',
-    marginRight: '20%',
-    marginTop: '30px',
-    color: 'white',
-    lineHeight: '1.8'
+    marginLeft: `${theme.spacing(2)}%`,
+    marginRight: `${theme.spacing(2)}%`,
+    marginTop: theme.spacing(3),
+    lineHeight: theme.typography.lineHeight,
+    color: theme.palette.common.white
   }
 }));
 
@@ -35,7 +34,7 @@ const SideBackground = () => {
         <Icon>
           <img src={bubbleImg} alt="bubble-icon" />
         </Icon>
-        <Typography className={classes.p}>Converse with anyone with any language</Typography>
+        <Typography variant='h5' className={classes.p}>Converse with anyone with any language</Typography>
       </Box>
     </>
   )
