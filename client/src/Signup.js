@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -8,26 +8,21 @@ import {
   Button,
   FormControl,
   TextField,
-  FormHelperText,
 } from "@material-ui/core";
 import { register } from "./store/utils/thunkCreators";
+import { useStyles } from "./components/Login/utils";
+import SideBackground from "./components/Login/SideBackground";
 
 const Login = (props) => {
   const history = useHistory();
+  const classes = useStyles();
   const { user, register } = props;
-  const [formErrorMessage, setFormErrorMessage] = useState({});
 
   const handleRegister = async (event) => {
     event.preventDefault();
     const username = event.target.username.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-
-    if (password !== confirmPassword) {
-      setFormErrorMessage({ confirmPassword: "Passwords must match" });
-      return;
-    }
 
     await register({ username, email, password });
   };
@@ -37,16 +32,31 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to log in?</Typography>
-          <Button onClick={() => history.push("/login")}>Login</Button>
+    <Grid container justifyContent="center" className={classes.container}>
+      <SideBackground />
+      <Box width={650}>
+        <Grid width={650} container item justifyContent="flex-end" className={classes.info_container_signup}>
+          <Typography
+            color='textSecondary'
+            align='right'
+            className={classes.create_account_info}
+          >
+            Already have an account?
+          </Typography>
+          <Button
+            color='primary'
+            variant="outlined"
+            className={classes.btn_Login_Page}
+            onClick={() => history.push("/login")}
+          >
+            Login
+          </Button>
         </Grid>
-        <form onSubmit={handleRegister}>
-          <Grid>
+        <form className={classes.form} onSubmit={handleRegister}>
+          <Grid justifyContent='center'>
+            <Typography style={{ fontWeight: 'bold' }} variant='h5'>Create An Account</Typography>
             <Grid>
-              <FormControl>
+              <FormControl fullWidth margin="normal">
                 <TextField
                   aria-label="username"
                   label="Username"
@@ -57,7 +67,7 @@ const Login = (props) => {
               </FormControl>
             </Grid>
             <Grid>
-              <FormControl>
+              <FormControl fullWidth margin="normal">
                 <TextField
                   label="E-mail address"
                   aria-label="e-mail address"
@@ -68,7 +78,7 @@ const Login = (props) => {
               </FormControl>
             </Grid>
             <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
+              <FormControl fullWidth margin="normal">
                 <TextField
                   aria-label="password"
                   label="Password"
@@ -77,29 +87,13 @@ const Login = (props) => {
                   name="password"
                   required
                 />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  label="Confirm Password"
-                  aria-label="confirm password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="confirmPassword"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
+            <Grid style={{ marginTop: '60px' }} container justifyContent='center'>
+              <Button className={classes.btn_submit} color={'primary'} type="submit" variant="contained" size="large">
+                Create
+              </Button>
             </Grid>
-            <Button type="submit" variant="contained" size="large">
-              Create
-            </Button>
           </Grid>
         </form>
       </Box>

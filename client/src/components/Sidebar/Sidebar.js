@@ -26,7 +26,7 @@ const Sidebar = (props) => {
 
   return (
     <Box className={classes.root}>
-      <CurrentUser />
+      <CurrentUser/>
       <Typography className={classes.title}>Chats</Typography>
       <Search handleChange={handleChange} />
       {conversations
