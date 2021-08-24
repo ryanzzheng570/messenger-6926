@@ -10,8 +10,11 @@ import {
   TextField,
 } from "@material-ui/core";
 import { login } from "./store/utils/thunkCreators";
+import SideBackground from "./components/Login/SideBackground";
+import { useStyles } from "./components/Login/utils";
 
 const Login = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   const { user, login } = props;
 
@@ -28,34 +31,54 @@ const Login = (props) => {
   }
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+    <Grid container justifyContent="center" className={classes.container}>
+      <SideBackground />
+      <Box width={650}>
+        <Grid container item justifyContent="flex-end" className={classes.info_container_signup}>
+          <Typography
+            color='textSecondary'
+            align='right'
+            className={classes.create_account_info}
+          >
+            Create an Account
+          </Typography>
+          <Button
+            variant="outlined"
+            color='primary'
+            className={classes.btn_createAcc}
+            onClick={() => history.push("/register")}
+          >Create an Account</Button>
         </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
+        <form className={classes.form} onSubmit={handleLogin}>
+          <Grid justifyContent='center'>
+            <Typography style={{ fontWeight: 'bold' }} variant='h5'>Welcome back!</Typography>
             <Grid>
-              <FormControl margin="normal" required>
+              <FormControl fullWidth margin="normal" required>
                 <TextField
                   aria-label="username"
-                  label="Username"
+                  label="User Name"
                   name="username"
                   type="text"
                 />
               </FormControl>
             </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
+            <Grid container>
+              <FormControl fullWidth margin="normal" required>
+                <TextField
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
+                  InputProps={{
+                    endAdornment:
+                      <Button className={classes.btn_forgot} color='primary'>Forgot?</Button>
+                  }}
+                />
+              </FormControl>
+
+            </Grid>
+            <Grid style={{ marginTop: '60px' }} container justifyContent='center'>
+              <Button className={classes.btn_submit} color={'primary'} type="submit" variant="contained" size="large">
                 Login
               </Button>
             </Grid>
