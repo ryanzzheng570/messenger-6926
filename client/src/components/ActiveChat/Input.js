@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormControl, FilledInput, IconButton } from "@material-ui/core";
+import { FormControl, FilledInput, IconButton, Typography, Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { postMessage } from "../../store/utils/thunkCreators";
@@ -7,7 +7,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import ImageIcon from '@material-ui/icons/Image';
 import { cloudinary_endpoint } from "./utils/Constants";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     justifySelf: "flex-end",
     marginTop: 15
@@ -20,6 +20,10 @@ const useStyles = makeStyles(() => ({
   },
   input_icon: {
     opacity: 0.7,
+  },
+  image_info: {
+    display: 'flex',
+    marginRight: theme.spacing(0)
   }
 }));
 
@@ -41,7 +45,7 @@ const Input = (props) => {
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
-      attachments: [attachments]
+      attachments: attachments.length > 0 ? attachments.map(file => file.secure_url) : null
     };
 
     await postMessage(reqBody);
@@ -49,28 +53,37 @@ const Input = (props) => {
     setAttachments([]);
   };
 
-  const uploadImage = async(files) => {
+  //Handler to upload image to Cloudinary Server
+  const handleUploadImage = async ({ target }) => {
+    //Create HTTP body
     const formData = new FormData();
-    formData.append('file', files[0]);
+    formData.append('file', target.files[0]);
     formData.append('upload_preset', 'eltw0zaf');
 
-    const data = await fetch(cloudinary_endpoint, {
-      method: 'POST',
-      body: formData
-    });
+    try {
+      const data = await fetch(cloudinary_endpoint, {
+        method: 'POST',
+        body: formData
+      });
 
-    let res = await data.json();
-    return res.secure_url;
-  }
-
-  const handleUploadImage = ({ target }) => {
-    const link = uploadImage(target.files)
-
+      let res = await data.json();
+      setAttachments([...attachments, res]);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <FormControl fullWidth hiddenLabel>
+        <Grid container>
+          {attachments.length > 0 && (attachments.map((file, index) => (
+            <Box key={index} className={classes.image_info}>
+              <ImageIcon className={classes.input_icon} />
+              <Typography>{file.original_filename}</Typography>
+            </Box>))
+          )}
+        </Grid>
         <FilledInput
           classes={{ root: classes.input }}
           disableUnderline
@@ -83,7 +96,7 @@ const Input = (props) => {
               <IconButton color='secondary'>
                 <InsertEmoticonIcon className={classes.input_icon} />
               </IconButton>
-              <input hidden accept='image/*' id='icon-button-photo' onChange={handleUploadImage} type='file'/>
+              <input hidden accept='image/*' id='icon-button-photo' onChange={handleUploadImage} type='file' />
               <label htmlFor='icon-button-photo'>
                 <IconButton color='secondary' component='span'>
                   <ImageIcon className={classes.input_icon} />
