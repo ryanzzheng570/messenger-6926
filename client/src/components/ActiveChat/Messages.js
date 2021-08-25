@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
-import { CloudinaryContext, Image, Transformation } from 'cloudinary-react'
+import { Image } from 'cloudinary-react'
 import { cloudinaryCloudName } from "./utils/Constants";
 import { makeStyles } from "@material-ui/styles";
 
@@ -21,8 +21,17 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   image_container: {
-    display: "flex",
-
+    '& img': {
+      width: 150,
+    },
+    '& div:only-child': {
+      '& img': {
+        width: 200
+      }
+    }
+  },
+  image: {
+    borderRadius: 5
   }
 
 }));
@@ -37,6 +46,21 @@ const Messages = (props) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages]);
 
+  //Function returns the image container for user/otherUser
+  const getImageContainer = (message) => {
+    return (
+      message.attachments && message.attachments.map((attachment, index) => (
+        <Box key={index} m={0}>
+          <Image
+            className={classes.image}
+            publicId={attachment}
+            cloudName={cloudinaryCloudName}
+          />
+        </Box>
+      ))
+    )
+  }
+
   return (
     <Box className={classes.root}>
       {
@@ -45,28 +69,19 @@ const Messages = (props) => {
 
           return message.senderId === userId ? (
             <Box key={message.id}>
-              <SenderBubble key={message.id} text={message.text} time={time} />
-              <Grid container justifyContent='flex-end'>
-                {/* {messages.attachments && messages.attachments.map((attachments) => { */}
-                {/* <Box m={0}>
-                  <CloudinaryContext key={message.id} cloudName={cloudinaryCloudName}>
-                    <Image publicId="https://res.cloudinary.com/demoryanzzheng/image/upload/v1629773406/olitjznhhfepgnyao255.png">
-                      <Transformation/>
-                    </Image>
-                  </CloudinaryContext>
-                </Box> */}
-                <Box m={0}>
-                  <CloudinaryContext key={message.id} cloudName={cloudinaryCloudName}>
-                    <Image publicId="https://res.cloudinary.com/demoryanzzheng/image/upload/v1629676207/sample.jpg" width='150' >
-                      <Transformation height="150" width="150" crop="fill" effect="sepia" radius="20" />
-                    </Image>
-                  </CloudinaryContext>
-                </Box>
-                {/* })} */}
+              <SenderBubble text={message.text} time={time} />
+
+              <Grid className={classes.image_container} container justifyContent='flex-end'>
+                {getImageContainer(message)}
               </Grid>
             </Box>
           ) : (
-            <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
+            <Box key={message.id}>
+              <OtherUserBubble text={message.text} time={time} otherUser={otherUser} />
+              <Grid className={classes.image_container} container justifyContent='flex-start'>
+                {getImageContainer(message)}
+              </Grid>
+            </Box>
           );
         })}
       <Box ref={messageEndRef} />
