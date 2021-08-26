@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 
 const OtherUserBubble = (props) => {
   const classes = useStyles();
-  const { text, time, otherUser } = props;
+  const { text, time, otherUser, attachments } = props;
   return (
     <Box className={classes.root}>
       <Avatar alt={otherUser.username} src={otherUser.photoUrl} className={classes.avatar}></Avatar>
@@ -41,10 +41,12 @@ const OtherUserBubble = (props) => {
         <Typography className={classes.usernameDate}>
           {otherUser.username} {time}
         </Typography>
-        {text &&
-          (<Box className={classes.bubble}>
-            <Typography className={classes.text}>{text}</Typography>
-          </Box>)}
+        <Grid className={classes.image_container} container justifyContent='flex-start'>
+          {attachments && (<ImageContainer attachments={attachments} />)}
+        </Grid>
+        <Box className={classes.bubble}>
+          {text && (<Typography className={classes.text}>{text}</Typography>)}
+        </Box>
       </Box>
     </Box>
   );
