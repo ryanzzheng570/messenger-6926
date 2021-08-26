@@ -3,7 +3,6 @@ import { Box, Grid } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 import { Image } from 'cloudinary-react'
-import { cloudinaryCloudName } from "./utils/Constants";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +53,7 @@ const Messages = (props) => {
           <Image
             className={classes.image}
             publicId={attachment}
-            cloudName={cloudinaryCloudName}
+            cloudName={process.env.REACT_APP_cloudinaryCloudName}
           />
         </Box>
       ))

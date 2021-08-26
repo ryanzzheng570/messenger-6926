@@ -58,7 +58,7 @@ const Input = (props) => {
     //Create HTTP body
     const formData = new FormData();
     formData.append('file', target.files[0]);
-    formData.append('upload_preset', 'eltw0zaf');
+    formData.append('upload_preset', process.env.REACT_APP_upload_preset);
 
     try {
       const data = await fetch(cloudinary_endpoint, {
