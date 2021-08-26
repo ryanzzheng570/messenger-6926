@@ -53,7 +53,7 @@ const Login = (props) => {
           </Button>
         </Grid>
         <form className={classes.form} onSubmit={handleRegister}>
-          <Grid justifyContent='center'>
+          <Grid>
             <Typography style={{ fontWeight: 'bold' }} variant='h5'>Create An Account</Typography>
             <Grid>
               <FormControl fullWidth margin="normal">

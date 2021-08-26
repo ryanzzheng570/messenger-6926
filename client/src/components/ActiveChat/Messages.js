@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
+
 import { makeStyles } from "@material-ui/styles";
+import ImageContainer from "./ImageContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
       background: 'transparent'
     }
   }
-
 }));
 
 const Messages = (props) => {
@@ -38,9 +39,19 @@ const Messages = (props) => {
           const time = moment(message.createdAt).format("h:mm");
 
           return message.senderId === userId ? (
-            <SenderBubble key={message.id} text={message.text} time={time} />
+            <Box key={message.id}>
+              <SenderBubble attachments={message.attachments} text={message.text} time={time} />
+              {/* <Grid className={classes.image_container} container justifyContent='flex-end'>
+                <ImageContainer message={message} />
+              </Grid> */}
+            </Box>
           ) : (
-            <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
+            <Box key={message.id}>
+              <OtherUserBubble text={message.text} time={time} otherUser={otherUser} />
+              <Grid className={classes.image_container} container justifyContent='flex-start'>
+                <ImageContainer message={message} />
+              </Grid>
+            </Box>
           );
         })}
       <Box ref={messageEndRef} />
