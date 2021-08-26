@@ -19,17 +19,7 @@ const useStyles = makeStyles((theme) => ({
       width: 0,
       background: 'transparent'
     }
-  },
-  image_container: {
-    '& img': {
-      width: 150,
-    },
-    '& div:only-child': {
-      '& img': {
-        width: 200
-      }
-    }
-  },
+  }
 }));
 
 const Messages = (props) => {
@@ -50,10 +40,10 @@ const Messages = (props) => {
 
           return message.senderId === userId ? (
             <Box key={message.id}>
-              <SenderBubble text={message.text} time={time} />
-              <Grid className={classes.image_container} container justifyContent='flex-end'>
+              <SenderBubble attachments={message.attachments} text={message.text} time={time} />
+              {/* <Grid className={classes.image_container} container justifyContent='flex-end'>
                 <ImageContainer message={message} />
-              </Grid>
+              </Grid> */}
             </Box>
           ) : (
             <Box key={message.id}>
