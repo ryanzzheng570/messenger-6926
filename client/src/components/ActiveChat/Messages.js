@@ -2,8 +2,9 @@ import React, { useRef, useEffect } from "react";
 import { Box, Grid } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
-import { Image } from 'cloudinary-react'
+
 import { makeStyles } from "@material-ui/styles";
+import ImageContainer from "./ImageContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,20 +46,20 @@ const Messages = (props) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages]);
 
-  //Function returns the image container for user/otherUser
-  const getImageContainer = (message) => {
-    return (
-      message.attachments && message.attachments.map((attachment, index) => (
-        <Box key={index} m={0}>
-          <Image
-            className={classes.image}
-            publicId={attachment}
-            cloudName={process.env.REACT_APP_cloudinaryCloudName}
-          />
-        </Box>
-      ))
-    )
-  }
+  // //Function returns the image container for user/otherUser
+  // const getImageContainer = (message) => {
+  //   return (
+  //     message.attachments && message.attachments.map((attachment, index) => (
+  //       <Box key={index} m={0}>
+  //         <Image
+  //           className={classes.image}
+  //           publicId={attachment}
+  //           cloudName={process.env.REACT_APP_cloudinaryCloudName}
+  //         />
+  //       </Box>
+  //     ))
+  //   )
+  // }
 
   return (
     <Box className={classes.root}>
@@ -71,14 +72,14 @@ const Messages = (props) => {
               <SenderBubble text={message.text} time={time} />
 
               <Grid className={classes.image_container} container justifyContent='flex-end'>
-                {getImageContainer(message)}
+                <ImageContainer message={message} />
               </Grid>
             </Box>
           ) : (
             <Box key={message.id}>
               <OtherUserBubble text={message.text} time={time} otherUser={otherUser} />
               <Grid className={classes.image_container} container justifyContent='flex-start'>
-                {getImageContainer(message)}
+                <ImageContainer message={message} />
               </Grid>
             </Box>
           );
