@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography, Avatar } from "@material-ui/core";
+import { Box, Typography, Avatar, Grid } from "@material-ui/core";
+import ImageContainer from "./ImageContainer";
 
 const useStyles = makeStyles(() => ({
   root: {
