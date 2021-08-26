@@ -55,27 +55,30 @@ const Input = (props) => {
 
   //Handler to upload image to Cloudinary Server
   const handleUploadImage = async ({ target }) => {
-    //Create HTTP body
-    const formData = new FormData();
-    formData.append('file', target.files[0]);
-    formData.append('upload_preset', process.env.REACT_APP_upload_preset);
-
+    const files = target.files;
+    const promiseList = [];
     try {
-      const data = await fetch(cloudinary_endpoint, {
-        method: 'POST',
-        body: formData
-      });
+      for (let i = 0; i < files.length; i++) {
+        //Create HTTP body
+        const formData = new FormData();
+        formData.append('file', target.files[i]);
+        formData.append('upload_preset', process.env.REACT_APP_upload_preset);
 
-      let res = await data.json();
-      setAttachments([...attachments, res]);
+        const data = fetch(cloudinary_endpoint, {
+          method: 'POST',
+          body: formData
+        });
+
+        promiseList.push(data);
+      }
+      const responseList = await Promise.all(promiseList);
+      const attaches = await Promise.all(responseList.map((response) => {
+        return response.json();
+      }));
+      setAttachments([...attachments, ...attaches]);
     } catch (error) {
       console.log(error);
     }
-  }
-
-  //Hanlder to allow an image to upload multiple times
-  const handleMultipleUpload = (e) => {
-    e.target.value = null;
   }
 
   return (
@@ -101,7 +104,7 @@ const Input = (props) => {
               <IconButton color='secondary'>
                 <InsertEmoticonIcon className={classes.input_icon} />
               </IconButton>
-              <input hidden accept='image/*' id='icon-button-photo' onInput={handleUploadImage} onClick={handleMultipleUpload} type='file' />
+              <input hidden accept='image/*' multiple id='icon-button-photo' onInput={handleUploadImage} type='file' />
               <label htmlFor='icon-button-photo'>
                 <IconButton color='secondary' component='span'>
                   <ImageIcon className={classes.input_icon} />

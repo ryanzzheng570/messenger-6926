@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
       }
     }
   },
-  image: {
-    borderRadius: 5
-  }
-
 }));
 
 const Messages = (props) => {
@@ -46,21 +42,6 @@ const Messages = (props) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages]);
 
-  // //Function returns the image container for user/otherUser
-  // const getImageContainer = (message) => {
-  //   return (
-  //     message.attachments && message.attachments.map((attachment, index) => (
-  //       <Box key={index} m={0}>
-  //         <Image
-  //           className={classes.image}
-  //           publicId={attachment}
-  //           cloudName={process.env.REACT_APP_cloudinaryCloudName}
-  //         />
-  //       </Box>
-  //     ))
-  //   )
-  // }
-
   return (
     <Box className={classes.root}>
       {
@@ -70,7 +51,6 @@ const Messages = (props) => {
           return message.senderId === userId ? (
             <Box key={message.id}>
               <SenderBubble text={message.text} time={time} />
-
               <Grid className={classes.image_container} container justifyContent='flex-end'>
                 <ImageContainer message={message} />
               </Grid>
