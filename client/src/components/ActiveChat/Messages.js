@@ -41,16 +41,10 @@ const Messages = (props) => {
           return message.senderId === userId ? (
             <Box key={message.id}>
               <SenderBubble attachments={message.attachments} text={message.text} time={time} />
-              {/* <Grid className={classes.image_container} container justifyContent='flex-end'>
-                <ImageContainer message={message} />
-              </Grid> */}
             </Box>
           ) : (
             <Box key={message.id}>
-              <OtherUserBubble text={message.text} time={time} otherUser={otherUser} />
-              <Grid className={classes.image_container} container justifyContent='flex-start'>
-                <ImageContainer message={message} />
-              </Grid>
+              <OtherUserBubble attachments={message.attachments} text={message.text} time={time} otherUser={otherUser} />
             </Box>
           );
         })}
